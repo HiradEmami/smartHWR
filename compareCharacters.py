@@ -110,17 +110,19 @@ if __name__ == "__main__":
 			tagged_image = image
 			xml_info = getLabelInfo(xml)
 			label = xml_info['utf']
+			print(label)
 			for (old_xml, old_image) in labelled:
 				if old_xml == label:
+					print(old_xml)
 					tagged_image_list.append(old_image)
 					break
-
 		#New combined image		
 		vis = np.zeros((128, 128*len(tagged_image_list)), np.uint8)
 		for i, iimage in enumerate(tagged_image_list):
 			vis[:128, 128*i:128*i+128] = iimage
+		smaller = cv2.resize(vis, (0,0), fx=0.7, fy=0.7) 
 
 
-		cv2.imshow('taggedImage',vis)
+		cv2.imshow('taggedImage',smaller)
 		cv2.waitKey(0)
 		cv2.destroyAllWindows()
